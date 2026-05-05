@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="laBouR" nsURI="http://www.example.org/laBouR" nsPrefix="laBouR">
+  <eClassifiers xsi:type="ecore:EClass" name="BoulderingWall" instanceClassName="BoulderingWall">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" ordered="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hold" upperBound="-1" eType="#//Hold"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="route" upperBound="-1"
+        eType="#//Route" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="volume" upperBound="-1"
+        eType="#//Volume" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Hold" instanceClassName="Hold">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" ordered="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Color" ordered="false"
+        unique="false" lowerBound="1" upperBound="-1" eType="#//Colors" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Rotation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="#//Label"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Route">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" ordered="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grade" ordered="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gridbasepointer" lowerBound="1"
+        eType="#//GridBasePointer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="steps" lowerBound="1" upperBound="-1"
+        eType="#//RouteStep"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Colors">
+    <eLiterals name="RED"/>
+    <eLiterals name="GREEN" value="1"/>
+    <eLiterals name="PURPLE" value="2"/>
+    <eLiterals name="BLUE" value="3"/>
+    <eLiterals name="WHITE" value="4"/>
+    <eLiterals name="PINK" value="5"/>
+    <eLiterals name="BLACK" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Label" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Start_hold" eSuperTypes="#//Label">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Arg" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="End_hold" eSuperTypes="#//Label"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Shape" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Circle" eSuperTypes="#//Shape">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Radius" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Depth" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Triangle" eSuperTypes="#//Shape">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="corner" lowerBound="3"
+        upperBound="3" eType="#//Corner"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extrusionpoint" lowerBound="1"
+        eType="#//ExtrusionPoint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Depth" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Corner">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtrusionPoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Volume">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" lowerBound="1" eType="#//Shape"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GridBasePointer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RouteStep" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitStep" eSuperTypes="#//RouteStep">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="#//Hold"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" lowerBound="1" eType="#//Hold"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SingleStep" eSuperTypes="#//RouteStep">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hold" lowerBound="1" eType="#//Hold"/>
+  </eClassifiers>
+</ecore:EPackage>
