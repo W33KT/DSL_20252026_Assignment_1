@@ -1,0 +1,101 @@
+modeltype LaBouR uses "http://www.example.org/laBouR"; 
+modeltype Turtle uses "http://www.example.org/turtle";
+
+transformation labour2turtle(in source: LaBouR, out target: Turtle);
+
+main() {
+    source.rootObjects()[BoulderingWall]->map wall2Program();
+}
+
+mapping BoulderingWall::wall2Program() : Turtle::Program {
+    self.route->forEach(r) {
+        r->map routeToStatements(result);
+    };
+}
+
+mapping LaBouR::Route::routeToStatements(inout prog : Turtle::Program) {
+    
+    var currX : Integer := self.gridbasepointer.x;
+    var currY : Integer := self.gridbasepointer.y;
+
+    self.steps->forEach(step) {
+
+        if (step.oclIsTypeOf(LaBouR::SingleStep)) then {
+            var sStep := step.oclAsType(LaBouR::SingleStep);
+            var nextX := sStep.hold.x;
+            var nextY := sStep.hold.y;
+
+            prog.statements += object Turtle::TurnToZero {};
+            prog.statements += object Turtle::TurnRight { 
+                expr := createAngleExpr(currX, currY, nextX, nextY) 
+            };
+            prog.statements += object Turtle::Move { 
+                expr := createDistanceExpr(currX, currY, nextX, nextY) 
+            };
+
+            currX := nextX;
+            currY := nextY;
+            
+        } else {
+            var splitStep := step.oclAsType(LaBouR::SplitStep);
+
+            var leftX := splitStep.left.x;
+            var leftY := splitStep.left.y;
+            
+            prog.statements += object Turtle::TurnToZero {};
+            prog.statements += object Turtle::TurnLeft { 
+                expr := createAngleExpr(currX, currY, leftX, leftY) 
+            };
+            prog.statements += object Turtle::Move { 
+                expr := createDistanceExpr(currX, currY, leftX, leftY) 
+            };
+            
+            currX := leftX;
+            currY := leftY;
+            
+        } endif;
+    };
+}
+
+query createReal(v : Real) : Turtle::RealConst {
+    return object Turtle::RealConst { value := v; };
+}
+
+query createSqrDiff(val1 : Integer, val2 : Integer) : Turtle::Sqr {
+    return object Turtle::Sqr {
+        expr := object Turtle::Binary {
+            left := createReal(val1);
+            right := createReal(val2);
+            operation := Turtle::Operation::SUBTRACT;
+        };
+    };
+}
+
+query createDistanceExpr(x1: Integer, y1: Integer, x2: Integer, y2: Integer) : Turtle::Sqrt {
+    return object Turtle::Sqrt {
+        expr := object Turtle::Binary {
+            left := createSqrDiff(x2, x1);
+            right := createSqrDiff(y2, y1);
+            operation := Turtle::Operation::ADD;
+        };
+    };
+}
+
+
+query createAngleExpr(x1: Integer, y1: Integer, x2: Integer, y2: Integer) : Turtle::Arctan {
+    return object Turtle::Arctan {
+        expr := object Turtle::Binary {
+            left := object Turtle::Binary {
+                left := createReal(x2);
+                right := createReal(x1);
+                operation := Turtle::Operation::SUBTRACT;
+            };
+            right := object Turtle::Binary {
+                left := createReal(y2);
+                right := createReal(y1);
+                operation := Turtle::Operation::SUBTRACT;
+            };
+            operation := Turtle::Operation::DIVISION;
+        };
+    };
+}
