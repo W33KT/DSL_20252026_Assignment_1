@@ -28,18 +28,17 @@
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//Hold">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/ID"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/x"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/y"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/Color"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/Rotation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Hold/label"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Hold/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Hold/shape"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference laBouR.ecore#//Hold/pos"/>
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//Route">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Route/ID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Route/Grade"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Route/gridbasepointer"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Route/steps"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Route/gridbasepointer"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Route/steps"/>
     </genClasses>
     <genClasses image="false" ecoreClass="laBouR.ecore#//Label"/>
     <genClasses ecoreClass="laBouR.ecore#//Start_hold">
@@ -48,22 +47,20 @@
     <genClasses ecoreClass="laBouR.ecore#//End_hold"/>
     <genClasses image="false" ecoreClass="laBouR.ecore#//Shape"/>
     <genClasses ecoreClass="laBouR.ecore#//Circle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Circle/x"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Circle/y"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Circle/Radius"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Circle/Depth"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Circle/front_holds"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Circle/side_holds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference laBouR.ecore#//Circle/pos"/>
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//Triangle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Triangle/x"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Triangle/y"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/corner"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/extrusionpoint"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/corner"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/extrusionpoint"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Triangle/Depth"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/left_holds"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/right_holds"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/bottom_holds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference laBouR.ecore#//Triangle/pos"/>
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//Corner">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Corner/y"/>
@@ -74,7 +71,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//ExtrusionPoint/y"/>
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//Volume">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Volume/shape"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//Volume/shape"/>
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//GridBasePointer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//GridBasePointer/x"/>
@@ -87,6 +84,10 @@
     </genClasses>
     <genClasses ecoreClass="laBouR.ecore#//SingleStep">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference laBouR.ecore#//SingleStep/hold"/>
+    </genClasses>
+    <genClasses ecoreClass="laBouR.ecore#//Pos">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Pos/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute laBouR.ecore#//Pos/y"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

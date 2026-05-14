@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<laBouR:BoulderingWall
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:laBouR="http://www.example.org/laBouR"
+    ID="wall 1">
+  <hold ID="0001"
+      Rotation="30"
+      shape="71">
+    <Color>RED</Color>
+    <Color>BLUE</Color>
+    <label xsi:type="laBouR:Start_hold"
+        Arg="1"/>
+    <pos x="10"
+        y="70"/>
+  </hold>
+  <hold ID="0002">
+    <label xsi:type="laBouR:Start_hold"
+        Arg="2"/>
+    <pos x="30"
+        y="60"/>
+  </hold>
+  <hold ID="0003">
+    <Color>GREEN</Color>
+    <pos x="40"
+        y="100"/>
+  </hold>
+  <hold ID="0004"
+      Rotation="-10"
+      shape="32">
+    <Color>PINK</Color>
+    <label xsi:type="laBouR:End_hold"/>
+    <pos x="60"
+        y="140"/>
+  </hold>
+  <route ID="my route"
+      Grade="5A">
+    <gridbasepointer
+        x="30"
+        y="20"/>
+    <steps xsi:type="laBouR:SplitStep"
+        left="0001"
+        right="0002"/>
+    <steps xsi:type="laBouR:SingleStep"
+        hold="0003"/>
+    <steps xsi:type="laBouR:SingleStep"
+        hold="0004"/>
+  </route>
+  <volume>
+    <shape xsi:type="laBouR:Triangle"
+        Depth="-20"
+        left_holds="0002"
+        right_holds="0003"
+        bottom_holds="0001">
+      <corner
+          y="20"
+          x="15"/>
+      <corner
+          y="36"
+          x="36"/>
+      <corner
+          y="74"
+          x="59"/>
+      <extrusionpoint
+          x="40"
+          y="80"/>
+      <pos x="63"
+          y="72"/>
+    </shape>
+  </volume>
+</laBouR:BoulderingWall>
