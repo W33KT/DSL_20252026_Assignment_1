@@ -14,47 +14,54 @@ mapping BoulderingWall::wall2Program() : Turtle::Program {
 }
 
 mapping LaBouR::Route::routeToStatements(inout prog : Turtle::Program) {
+    var commonHolds := self.steps->select(oclIsTypeOf(LaBouR::SingleStep))
+                                 .oclAsType(LaBouR::SingleStep).hold;
     
-    var currX : Integer := self.gridbasepointer.x;
-    var currY : Integer := self.gridbasepointer.y;
+    var splitStep := self.steps->select(oclIsTypeOf(LaBouR::SplitStep))
+                                 .oclAsType(LaBouR::SplitStep)->any(true);
 
-    self.steps->forEach(step) {
+    var path1Holds := commonHolds->asSequence();
+    if (splitStep <> null) then path1Holds += splitStep.left endif;
+    var sortedPath1 := path1Holds->sortedBy(h | h.pos.y);
+    
+    self.generatePathInstructions(prog, sortedPath1);
 
-        if (step.oclIsTypeOf(LaBouR::SingleStep)) then {
-            var sStep := step.oclAsType(LaBouR::SingleStep);
-            var nextX := sStep.hold.x;
-            var nextY := sStep.hold.y;
+    if (splitStep <> null) then {
+        var path2Holds := commonHolds->asSequence();
+        path2Holds += splitStep.right;
+        var sortedPath2 := path2Holds->sortedBy(h | h.pos.y);
+        
+        self.generatePathInstructions(prog, sortedPath2);
+    } endif;
+}
 
-            prog.statements += object Turtle::TurnToZero {};
+helper LaBouR::Route::generatePathInstructions(inout prog : Turtle::Program, sortedHolds : Sequence(LaBouR::Hold)) {
+    var curX := self.gridbasepointer.x;
+    var curY := self.gridbasepointer.y;
+    
+    sortedHolds->forEach(h) {
+        var nX := h.pos.x;
+        var nY := h.pos.y;
+        
+        prog.statements += object Turtle::TurnToZero {};
+        
+        if (nX >= curX) then {
             prog.statements += object Turtle::TurnRight { 
-                expr := createAngleExpr(currX, currY, nextX, nextY) 
+                expr := createAngleExpr(curX, curY, nX, nY) 
             };
-            prog.statements += object Turtle::Move { 
-                expr := createDistanceExpr(currX, currY, nextX, nextY) 
-            };
-
-            currX := nextX;
-            currY := nextY;
-            
         } else {
-            var splitStep := step.oclAsType(LaBouR::SplitStep);
-
-            var leftX := splitStep.left.x;
-            var leftY := splitStep.left.y;
-            
-            prog.statements += object Turtle::TurnToZero {};
             prog.statements += object Turtle::TurnLeft { 
-                expr := createAngleExpr(currX, currY, leftX, leftY) 
+                expr := createAngleExpr(nX, curY, curX, nY) 
             };
-            prog.statements += object Turtle::Move { 
-                expr := createDistanceExpr(currX, currY, leftX, leftY) 
-            };
-            
-            currX := leftX;
-            currY := leftY;
-            
         } endif;
-    };
+        
+        prog.statements += object Turtle::Move { 
+            expr := createDistanceExpr(curX, curY, nX, nY) 
+        };
+        
+        curX := nX;
+        curY := nY;
+    }
 }
 
 query createReal(v : Real) : Turtle::RealConst {
@@ -80,7 +87,6 @@ query createDistanceExpr(x1: Integer, y1: Integer, x2: Integer, y2: Integer) : T
         };
     };
 }
-
 
 query createAngleExpr(x1: Integer, y1: Integer, x2: Integer, y2: Integer) : Turtle::Arctan {
     return object Turtle::Arctan {
